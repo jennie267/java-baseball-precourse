@@ -9,7 +9,7 @@ import nextstep.utils.Randoms;
 
 public class TargetNumber {
 	
-	protected static final int TOTAL_TARGET_NUMBER = 3;
+	public static final int TOTAL_TARGET_NUMBER = 3;
 
 	private List<Integer> targetNumbers;
 
