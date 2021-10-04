@@ -1,7 +1,6 @@
 package baseball.controller;
 
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -17,11 +16,10 @@ public class GameController {
 	public void start() {
 		TargetNumber targetNumber = new TargetNumber();
 		
-		System.out.println("메인숫자  " + targetNumber.getTargetNumbers().toString());
-		
 		while (true) {
 			String playerNumber = enterPlayerNumber();
-			countAnswer(targetNumber, playerNumber);
+			Game game = countAnswer(targetNumber, playerNumber);
+			printResult(game);
 		}
 	}
 	
@@ -130,7 +128,6 @@ public class GameController {
 		
 		String[] playNumbers = playerNumber.split("");
 		for (int i = 0; i < playNumbers.length; i++) {
-			
 			if (targetNumbers.contains(playNumbers[i])) {
 				ball++;
 			}
@@ -142,6 +139,28 @@ public class GameController {
 		}
 		
 		return new Game(strike, ball);
+	}
+	
+	private void printResult(Game game) {
+		if (game.getStrike() == TargetNumber.TOTAL_TARGET_NUMBER) {
+			System.out.println("3개의 숫자를 모두 맞히셨습니다! 게임 끝");
+			return;
+		}
+		
+		if (game.getStrike() == 0 && game.getBall() == 0) {
+			System.out.println("낫싱");
+			return;
+		}
+		
+		if (game.getStrike() > 0) {
+			System.out.print(game.getStrike()+"스트라이크 ");
+		}
+		
+		if (game.getBall() > 0) {
+			System.out.print(game.getBall() + "볼");
+		}
+		System.out.println();
+		
 	}
 	
 
