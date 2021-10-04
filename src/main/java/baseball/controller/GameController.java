@@ -145,6 +145,15 @@ public class GameController {
 	}
 	
 	private void printResult(Game game) {
+		if (game.getStrike() > 0) {
+			System.out.print(game.getStrike()+"스트라이크 ");
+		}
+		
+		if (game.getBall() > 0) {
+			System.out.print(game.getBall() + "볼");
+		}
+		System.out.println();
+		
 		if (game.getStrike() == TargetNumber.TOTAL_TARGET_NUMBER) {
 			System.out.println(TargetNumber.TOTAL_TARGET_NUMBER+"개의 숫자를 모두 맞히셨습니다! 게임 끝");
 			onPlay = false;
@@ -156,14 +165,6 @@ public class GameController {
 			return;
 		}
 		
-		if (game.getStrike() > 0) {
-			System.out.print(game.getStrike()+"스트라이크 ");
-		}
-		
-		if (game.getBall() > 0) {
-			System.out.print(game.getBall() + "볼");
-		}
-		System.out.println();
 	}
 	
 	private void restartAnswer() {
