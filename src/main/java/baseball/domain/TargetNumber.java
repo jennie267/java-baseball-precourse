@@ -16,7 +16,7 @@ public class TargetNumber {
 	public TargetNumber() {
 		Set<String> numbers = new LinkedHashSet<String>();
 		while (numbers.size() <TargetNumber.TOTAL_TARGET_NUMBER) {
-			numbers.add(Integer.toString(Randoms.pickNumberInRange(0, 9)));
+			numbers.add(Integer.toString(Randoms.pickNumberInRange(1, 9)));
 		}
 		this.targetNumbers = new ArrayList<>(numbers);
 	}
