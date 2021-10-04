@@ -5,18 +5,17 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import baseball.common.Number;
 import nextstep.utils.Randoms;
 
 public class TargetNumber {
 	
-	public static final int TOTAL_TARGET_NUMBER = 3;
-
 	private List<String> targetNumbers;
 
 	public TargetNumber() {
 		Set<String> numbers = new LinkedHashSet<String>();
-		while (numbers.size() <TargetNumber.TOTAL_TARGET_NUMBER) {
-			numbers.add(Integer.toString(Randoms.pickNumberInRange(1, 9)));
+		while (numbers.size() < Number.TOTAL_TARGET_NUMBER) {
+			numbers.add(Integer.toString(Randoms.pickNumberInRange(Number.RANDOM_MIN_NUMBER, Number.RANDOM_MAX_NUMBER)));
 		}
 		this.targetNumbers = new ArrayList<>(numbers);
 	}

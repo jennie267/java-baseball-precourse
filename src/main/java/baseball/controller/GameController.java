@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import baseball.common.Message;
+import baseball.common.Number;
 import baseball.domain.Game;
 import baseball.domain.TargetNumber;
 import nextstep.utils.Console;
@@ -31,8 +33,8 @@ public class GameController {
 	 * @return
 	 */
 	private String enterPlayerNumber() {
-		System.out.print("숫자를 입력해주세요 : ");
-		String playerNumbers = Console.readLine().replaceAll(" ", "");
+		System.out.print(Message.INSERT_NUMBER);
+		String playerNumbers = Console.readLine();
 		if (checkPlayerNumber(playerNumbers)) {
 			return playerNumbers;
 		}
@@ -71,8 +73,8 @@ public class GameController {
 	 * @return
 	 */
 	private boolean checkNumberLength(String playerNumbers) {
-		if (playerNumbers.length() != TargetNumber.TOTAL_TARGET_NUMBER) {
-			System.out.println("[ERROR] " + TargetNumber.TOTAL_TARGET_NUMBER + "개의 숫자만 입력하세요");
+		if (playerNumbers.length() != Number.TOTAL_TARGET_NUMBER) {
+			System.out.println(Message.ERROR_MAX_NUMBER);
 			return false;
 		}
 		return true;
@@ -84,9 +86,13 @@ public class GameController {
 	 * @return
 	 */
 	private boolean checkNumberRange(String playerNumbers) {
-		if (playerNumbers.contains("0")) {
-			System.out.println("[ERROR] 1~9까지의 숫자만 입력하세요");
-			return false;
+		String[] playNumbers = playerNumbers.split("");
+		for (int i = 0; i < playNumbers.length; i++) {
+			int number = Integer.parseInt(playNumbers[i]);
+			if (number < Number.RANDOM_MIN_NUMBER || number > Number.RANDOM_MAX_NUMBER) {
+				System.out.println(Message.ERROR_NUMBER_RANGE);
+				return false;
+			}
 		}
 		return true;
 	}
@@ -101,8 +107,8 @@ public class GameController {
 		for (String number : playerNumbers.split("")) {
 			deleteDuplicatedNumber.add(number);
 		}
-		if (deleteDuplicatedNumber.size() != TargetNumber.TOTAL_TARGET_NUMBER) {
-			System.out.println("[ERROR] 중복된 숫자는 입력할 수 없습니다");
+		if (deleteDuplicatedNumber.size() != Number.TOTAL_TARGET_NUMBER) {
+			System.out.println(Message.ERROR_DUPLICATE_NUMBER);
 			return false;
 		}
 		return true;
@@ -117,12 +123,18 @@ public class GameController {
 		try {
 			int number = Integer.parseInt(playerNumbers);
 		} catch (NumberFormatException e) {
-			System.out.println("[ERROR] 숫자만 입력 가능합니다");
+			System.out.println(Message.ERROR_ONLY_NUMBER);
 			return false;
 		}
 		return true;
 	}
 	
+	/**
+	 * 스트라이크/볼/낫싱 판정
+	 * @param targetNumber
+	 * @param playerNumber
+	 * @return
+	 */
 	private Game countAnswer(TargetNumber targetNumber, String playerNumber) {
 		List<String> targetNumbers = targetNumber.getTargetNumbers();
 		
@@ -144,33 +156,40 @@ public class GameController {
 		return new Game(strike, ball);
 	}
 	
+	/**
+	 * 결과 출력
+	 * @param game
+	 */
 	private void printResult(Game game) {
 		if (game.getStrike() > 0) {
-			System.out.print(game.getStrike()+"스트라이크 ");
+			System.out.print(game.getStrike()+Message.STRIKE + " ");
 		}
 		
 		if (game.getBall() > 0) {
-			System.out.print(game.getBall() + "볼");
+			System.out.print(game.getBall() + Message.BALL);
 		}
 		System.out.println();
 		
-		if (game.getStrike() == TargetNumber.TOTAL_TARGET_NUMBER) {
-			System.out.println(TargetNumber.TOTAL_TARGET_NUMBER+"개의 숫자를 모두 맞히셨습니다! 게임 끝");
+		if (game.getStrike() == Number.TOTAL_TARGET_NUMBER) {
+			System.out.println(Message.END_GAME);
 			onPlay = false;
 			return;
 		}
 		
 		if (game.getStrike() == 0 && game.getBall() == 0) {
-			System.out.println("낫싱");
+			System.out.println(Message.NOTHING);
 			return;
 		}
 		
 	}
 	
+	/**
+	 * 재시작 질문
+	 */
 	private void restartAnswer() {
-		System.out.println("게임을새로시작하려면1,종료하려면2를입력하세요");
+		System.out.println(Message.RESTART_GAME);
 		
-		String restart = Console.readLine().replace(" ", "");
+		String restart = Console.readLine();
 		
 		if ("1".equals(restart)) {
 			start();
