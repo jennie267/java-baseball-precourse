@@ -58,10 +58,6 @@ public class Game {
 		}
 	}
 	
-	public void setTargetNumbers(List<String> targetNumbers) {
-		this.targetNumbers = targetNumbers;
-	}
-
 	public List<String> getTargetNumbers() {
 		return targetNumbers;
 	}
