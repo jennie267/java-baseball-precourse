@@ -1,8 +1,11 @@
 package baseball.controller;
 
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
+import baseball.domain.Game;
 import baseball.domain.TargetNumber;
 import nextstep.utils.Console;
 
@@ -14,7 +17,12 @@ public class GameController {
 	public void start() {
 		TargetNumber targetNumber = new TargetNumber();
 		
-		enterPlayerNumber();
+		System.out.println("메인숫자  " + targetNumber.getTargetNumbers().toString());
+		
+		while (true) {
+			String playerNumber = enterPlayerNumber();
+			countAnswer(targetNumber, playerNumber);
+		}
 	}
 	
 	/**
@@ -113,5 +121,28 @@ public class GameController {
 		}
 		return true;
 	}
+	
+	private Game countAnswer(TargetNumber targetNumber, String playerNumber) {
+		List<String> targetNumbers = targetNumber.getTargetNumbers();
+		
+		int strike = 0;
+		int ball = 0;
+		
+		String[] playNumbers = playerNumber.split("");
+		for (int i = 0; i < playNumbers.length; i++) {
+			
+			if (targetNumbers.contains(playNumbers[i])) {
+				ball++;
+			}
+			
+			if (targetNumbers.get(i).equals(playNumbers[i])) {
+				strike++;
+				ball--;
+			}
+		}
+		
+		return new Game(strike, ball);
+	}
+	
 
 }

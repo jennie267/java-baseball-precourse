@@ -21,8 +21,7 @@ public class TargetNumberTest {
 	@Test
 	void 컴퓨터_임의의_수_유효성_검사() {
 		TargetNumber targetNumber = new TargetNumber();
-		Set<Integer> numbers = new HashSet<Integer>();
-		targetNumber.getTargetNumbers().forEach(number -> numbers.add(number));
+		Set<String> numbers = new HashSet<String>(targetNumber.getTargetNumbers());
 		
 		assertThat(numbers.size()).isEqualTo(TargetNumber.TOTAL_TARGET_NUMBER);
 	}

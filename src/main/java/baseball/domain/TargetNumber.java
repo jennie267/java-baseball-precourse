@@ -11,17 +11,17 @@ public class TargetNumber {
 	
 	public static final int TOTAL_TARGET_NUMBER = 3;
 
-	private List<Integer> targetNumbers;
+	private List<String> targetNumbers;
 
 	public TargetNumber() {
-		Set<Integer> numbers = new LinkedHashSet<Integer>();
+		Set<String> numbers = new LinkedHashSet<String>();
 		while (numbers.size() <TargetNumber.TOTAL_TARGET_NUMBER) {
-			numbers.add(Randoms.pickNumberInRange(0, 9));
+			numbers.add(Integer.toString(Randoms.pickNumberInRange(0, 9)));
 		}
 		this.targetNumbers = new ArrayList<>(numbers);
 	}
 
-	public List<Integer> getTargetNumbers() {
+	public List<String> getTargetNumbers() {
 		return targetNumbers;
 	}
 
