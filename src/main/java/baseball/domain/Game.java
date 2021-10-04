@@ -1,5 +1,7 @@
 package baseball.domain;
 
+import java.util.List;
+
 public class Game {
 	
 	private int strike;
@@ -14,22 +16,6 @@ public class Game {
 		this.strike = strike;
 		this.ball = ball;
 	}
-	
-	private void addStrike() {
-		strike++;
-	}
-	
-	private void addBall() {
-		ball++;
-	}
-	
-	private void minusStrike() {
-		strike--;
-	}
-	
-	private void minusBall() {
-		ball--;
-	}
 
 	public int getStrike() {
 		return strike;
@@ -37,5 +23,20 @@ public class Game {
 
 	public int getBall() {
 		return ball;
+	}
+	
+	public Game countBall(List<String> target, String number) {
+		if (target.contains(number)) {
+			ball++;
+		}
+		return this;
+	}
+	
+	public Game countStrike(String target, String number) {
+		if (target.equals(number)) {
+			strike++;
+			ball--;
+		}
+		return this;
 	}
 }

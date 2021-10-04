@@ -48,6 +48,9 @@ public class GameController {
 	 * @return
 	 */
 	private boolean checkPlayerNumber(String playerNumbers) {
+		if (playerNumbers.length() == 0) {
+			return false;
+		}
 		if (!checkNumeric(playerNumbers)) {
 			return false;
 		}
@@ -87,12 +90,20 @@ public class GameController {
 	 */
 	private boolean checkNumberRange(String playerNumbers) {
 		String[] playNumbers = playerNumbers.split("");
-		for (int i = 0; i < playNumbers.length; i++) {
-			int number = Integer.parseInt(playNumbers[i]);
-			if (number < Number.RANDOM_MIN_NUMBER || number > Number.RANDOM_MAX_NUMBER) {
-				System.out.println(Message.ERROR_NUMBER_RANGE);
-				return false;
-			}
+		boolean checkResult = true;
+		int cursor = 0;
+		while (checkResult && cursor < playNumbers.length) {
+			int number = Integer.parseInt(playNumbers[cursor]);
+			checkResult = isInBetweenNumber(number);
+			cursor++;
+		}
+		return checkResult;
+	}
+	
+	private boolean isInBetweenNumber(int number) {
+		if (number < Number.RANDOM_MIN_NUMBER || number > Number.RANDOM_MAX_NUMBER) {
+			System.out.println(Message.ERROR_NUMBER_RANGE);
+			return false;
 		}
 		return true;
 	}
@@ -137,23 +148,14 @@ public class GameController {
 	 */
 	private Game countAnswer(TargetNumber targetNumber, String playerNumber) {
 		List<String> targetNumbers = targetNumber.getTargetNumbers();
-		
-		int strike = 0;
-		int ball = 0;
-		
 		String[] playNumbers = playerNumber.split("");
+		Game game = new Game();
 		for (int i = 0; i < playNumbers.length; i++) {
-			if (targetNumbers.contains(playNumbers[i])) {
-				ball++;
-			}
-			
-			if (targetNumbers.get(i).equals(playNumbers[i])) {
-				strike++;
-				ball--;
-			}
+			game.countBall(targetNumbers, playNumbers[i]);
+			game.countStrike(targetNumbers.get(i), playNumbers[i]);
 		}
 		
-		return new Game(strike, ball);
+		return game;
 	}
 	
 	/**
@@ -191,11 +193,11 @@ public class GameController {
 		
 		String restart = Console.readLine();
 		
-		if ("1".equals(restart)) {
+		if (Integer.toString(Number.RESTART_NUMBER).equals(restart)) {
 			start();
 			return;
 		}
-		if ("2".equals(restart)) {
+		if (Integer.toString(Number.END_NUMBER).equals(restart)) {
 			return;
 		}
 		restartAnswer();
