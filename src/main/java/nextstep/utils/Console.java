@@ -32,7 +32,7 @@ public class Console {
      */
     public static String readLine() {
         makeNewScannerIfScannerIsClosed();
-        return scanner.nextLine();
+        return scanner.nextLine().replaceAll(" ", "");
     }
 
     private static void makeNewScannerIfScannerIsClosed() {
