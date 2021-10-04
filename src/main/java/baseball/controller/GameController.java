@@ -10,17 +10,20 @@ import nextstep.utils.Console;
 
 public class GameController {
 	
+	private boolean onPlay = false;
+	
 	/**
 	 * 게임 시작
 	 */
 	public void start() {
+		onPlay = true;
 		TargetNumber targetNumber = new TargetNumber();
-		
-		while (true) {
+		while (onPlay) {
 			String playerNumber = enterPlayerNumber();
 			Game game = countAnswer(targetNumber, playerNumber);
 			printResult(game);
 		}
+		restartAnswer();
 	}
 	
 	/**
@@ -143,7 +146,8 @@ public class GameController {
 	
 	private void printResult(Game game) {
 		if (game.getStrike() == TargetNumber.TOTAL_TARGET_NUMBER) {
-			System.out.println("3개의 숫자를 모두 맞히셨습니다! 게임 끝");
+			System.out.println(TargetNumber.TOTAL_TARGET_NUMBER+"개의 숫자를 모두 맞히셨습니다! 게임 끝");
+			onPlay = false;
 			return;
 		}
 		
@@ -160,7 +164,21 @@ public class GameController {
 			System.out.print(game.getBall() + "볼");
 		}
 		System.out.println();
+	}
+	
+	private void restartAnswer() {
+		System.out.println("게임을새로시작하려면1,종료하려면2를입력하세요");
 		
+		String restart = Console.readLine().replace(" ", "");
+		
+		if ("1".equals(restart)) {
+			start();
+			return;
+		}
+		if ("2".equals(restart)) {
+			return;
+		}
+		restartAnswer();
 	}
 	
 

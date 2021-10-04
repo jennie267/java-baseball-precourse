@@ -15,4 +15,27 @@ public class Game {
 		this.ball = ball;
 	}
 	
+	private void addStrike() {
+		strike++;
+	}
+	
+	private void addBall() {
+		ball++;
+	}
+	
+	private void minusStrike() {
+		strike--;
+	}
+	
+	private void minusBall() {
+		ball--;
+	}
+
+	public int getStrike() {
+		return strike;
+	}
+
+	public int getBall() {
+		return ball;
+	}
 }
