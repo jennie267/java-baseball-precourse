@@ -56,6 +56,13 @@ public class Game {
 			countBall(targetNumbers, playNumbers[i]);
 			countStrike(targetNumbers.get(i), playNumbers[i]);
 		}
-		
+	}
+	
+	public void setTargetNumbers(List<String> targetNumbers) {
+		this.targetNumbers = targetNumbers;
+	}
+
+	public List<String> getTargetNumbers() {
+		return targetNumbers;
 	}
 }
