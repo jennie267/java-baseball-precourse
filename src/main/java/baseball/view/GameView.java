@@ -1,17 +1,16 @@
 package baseball.view;
 
-import baseball.Validation.Validation;
 import baseball.common.Message;
 import baseball.common.Number;
 import baseball.domain.Game;
 import nextstep.utils.Console;
 
-public class PrintView {
+public class GameView {
 	
 	public String enterPlayerNumber() {
 		System.out.print(Message.INSERT_NUMBER);
 		String playerNumbers = Console.readLine();
-		if (new Validation().checkPlayerNumber(playerNumbers)) {
+		if (new ValidationView().checkPlayerNumber(playerNumbers)) {
 			return playerNumbers;
 		}
 		

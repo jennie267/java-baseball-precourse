@@ -1,4 +1,4 @@
-package baseball.Validation;
+package baseball.view;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -6,7 +6,7 @@ import java.util.Set;
 import baseball.common.Message;
 import baseball.common.Number;
 
-public class Validation {
+public class ValidationView {
 	
 	public boolean checkPlayerNumber(String playerNumbers) {
 		if (playerNumbers.length() == 0) {

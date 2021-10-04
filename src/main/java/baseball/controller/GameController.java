@@ -1,21 +1,20 @@
 package baseball.controller;
 
 import baseball.domain.Game;
-import baseball.view.PrintView;
+import baseball.view.GameView;
 
 public class GameController {
 	
-	private PrintView printView = new PrintView();
+	private GameView gameView = new GameView();
 	
 	public void start() {
 		boolean onPlay = true;
 		Game game = new Game();
 		while (onPlay) {
-			String playerNumber = printView.enterPlayerNumber();
-			game.countAnswer(playerNumber);
-			onPlay = printView.printResult(game);
+			game.countAnswer(gameView.enterPlayerNumber());
+			onPlay = gameView.printResult(game);
 		}
-		if (printView.restartAnswer()) {
+		if (gameView.restartAnswer()) {
 			start();
 		}
 	}
