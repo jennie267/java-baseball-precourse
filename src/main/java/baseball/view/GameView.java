@@ -18,25 +18,8 @@ public class GameView {
 	}
 	
 	public boolean printResult(Game game) {
-		if (game.getStrike() == 0 && game.getBall() == 0) {
-			System.out.println(Message.NOTHING);
-			return true;
-		}
-		
-		if (game.getStrike() > 0) {
-			System.out.print(game.getStrike()+Message.STRIKE + " ");
-		}
-		
-		if (game.getBall() > 0) {
-			System.out.print(game.getBall() + Message.BALL);
-		}
-		System.out.println();
-		
-		if (game.getStrike() == Number.TOTAL_TARGET_NUMBER) {
-			System.out.println(Message.END_GAME);
-			return false;
-		}
-		return true;
+		printScore(game);
+		return printEndGame(game);
 	}
 	
 	public boolean restartAnswer() {
@@ -51,6 +34,27 @@ public class GameView {
 			return false;
 		}
 		return restartAnswer();
+	}
+	
+	private void printScore(Game game) {
+		if (game.getStrike() == 0 && game.getBall() == 0) {
+			System.out.print(Message.NOTHING);
+		}
+		if (game.getStrike() > 0) {
+			System.out.print(game.getStrike()+Message.STRIKE + " ");
+		}
+		if (game.getBall() > 0) {
+			System.out.print(game.getBall() + Message.BALL);
+		}
+		System.out.println();
+	}
+	
+	private boolean printEndGame(Game game) {
+		if (game.getStrike() == Number.TOTAL_TARGET_NUMBER) {
+			System.out.println(Message.END_GAME);
+			return false;
+		}
+		return true;
 	}
 
 }

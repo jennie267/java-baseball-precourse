@@ -12,16 +12,10 @@ public class ValidationView {
 		if (playerNumbers.length() == 0) {
 			return false;
 		}
-		if (!checkNumeric(playerNumbers)) {
+		if (!checkNormalNumber(playerNumbers)) {
 			return false;
 		}
-		if (!checkNumberLength(playerNumbers)) {
-			return false;
-		}
-		if (!checkNumberRange(playerNumbers)) {
-			return false;
-		}
-		if (!checkDuplicated(playerNumbers)) {
+		if (!checkTotalNumberRange(playerNumbers)) {
 			return false;
 		}
 		return true;
@@ -72,6 +66,26 @@ public class ValidationView {
 			Integer.parseInt(playerNumbers);
 		} catch (NumberFormatException e) {
 			System.out.println(Message.ERROR_ONLY_NUMBER);
+			return false;
+		}
+		return true;
+	}
+	
+	private boolean checkTotalNumberRange(String playerNumbers) {
+		if (!checkNumberLength(playerNumbers)) {
+			return false;
+		}
+		if (!checkNumberRange(playerNumbers)) {
+			return false;
+		}
+		return true;
+	}
+	
+	private boolean checkNormalNumber(String playerNumbers) {
+		if (!checkNumeric(playerNumbers)) {
+			return false;
+		}
+		if (!checkDuplicated(playerNumbers)) {
 			return false;
 		}
 		return true;
